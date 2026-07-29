@@ -1,5 +1,5 @@
 service:
-  name: python-hello-world_prod
+  name: python-hello-world-prod
   identifier: python_hello_world_prod
   serviceDefinition:
     type: Kubernetes
