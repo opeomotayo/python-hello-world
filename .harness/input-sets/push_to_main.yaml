@@ -14,7 +14,7 @@ inputSet:
               branch: <+trigger.branch>
     stages:
       - stage:
-          identifier: Deploy_PreProd
+          identifier: deploy_to_preprod
           type: Deployment
           spec:
             service:
@@ -31,7 +31,7 @@ inputSet:
                             spec:
                               tag: <+trigger.commitShortSha>
       - stage:
-          identifier: Deploy_Prod
+          identifier: deploy_to_prod
           type: Deployment
           spec:
             service:
