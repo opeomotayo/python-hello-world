@@ -12,8 +12,8 @@ pipeline:
         build: <+input>
   stages:
     - stage:
-        name: Build_App
-        identifier: BuildApp
+        name: build_app
+        identifier: build_app
         description: ""
         type: CI
         spec:
@@ -36,18 +36,19 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Test_App
-                  identifier: Install_Dependencies_Run_Tests
+                  name: test_app
+                  identifier: test_app
                   spec:
                     connectorRef: Docker_Hub_Connector
                     image: python:3-alpine
                     shell: Sh
                     command: |-
+                      pip install -r requirements.txt
                       python -m unittest discover
               - step:
                   type: BuildAndPushDockerRegistry
                   name: Build and Push to DockerHub
-                  identifier: Build_and_Push_to_DockerHub
+                  identifier: build_and_push_to_dockerhub
                   spec:
                     connectorRef: Docker_Hub_Connector
                     repo: opeomotayo/python-hello-world
