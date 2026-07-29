@@ -13,7 +13,7 @@ pipeline:
   stages:
     - stage:
         name: build_app
-        identifier: buildapp
+        identifier: build_app
         description: ""
         type: CI
         spec:
@@ -36,8 +36,8 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: Test_App
-                  identifier: Install_Dependencies_Run_Tests
+                  name: test_app
+                  identifier: test_app
                   spec:
                     connectorRef: Docker_Hub_Connector
                     image: python:3-alpine
