@@ -55,8 +55,8 @@ pipeline:
                     tags:
                       - <+pipeline.sequenceId>
     - stage:
-        name: Deploy_PreProd
-        identifier: Deploy_PreProd
+        name: deploy_to_preprod
+        identifier: deploy_to_preprod
         description: ""
         type: Deployment
         spec:
