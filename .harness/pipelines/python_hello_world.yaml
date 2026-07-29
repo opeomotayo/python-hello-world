@@ -12,8 +12,8 @@ pipeline:
         build: <+input>
   stages:
     - stage:
-        name: Build_App
-        identifier: BuildApp
+        name: build_app
+        identifier: buildapp
         description: ""
         type: CI
         spec:
