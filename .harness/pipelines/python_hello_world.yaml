@@ -62,7 +62,7 @@ pipeline:
         spec:
           deploymentType: Kubernetes
           service:
-            serviceRef: pythonhelloworldpreprod
+            serviceRef: python_hello_world_preprod
             serviceInputs:
               serviceDefinition:
                 type: Kubernetes
@@ -102,8 +102,8 @@ pipeline:
               action:
                 type: StageRollback
     - stage:
-        name: Prod_Approval
-        identifier: Prod_Approval
+        name: prod_approval
+        identifier: prod_approval
         description: ""
         type: Approval
         spec:
@@ -128,8 +128,8 @@ pipeline:
                     approverInputs: []
         tags: {}
     - stage:
-        name: Deploy_Prod
-        identifier: Deploy_Prod
+        name: deploy_to_prod
+        identifier: deploy_to_prod
         description: ""
         type: Deployment
         spec:
