@@ -47,7 +47,7 @@ pipeline:
                       python -m unittest discover
               - step:
                   type: BuildAndPushDockerRegistry
-                  name: Build and Push to DockerHub
+                  name: build_and_push_to_dockerhub
                   identifier: build_and_push_to_dockerhub
                   spec:
                     connectorRef: Docker_Hub_Connector
@@ -79,8 +79,8 @@ pipeline:
           execution:
             steps:
               - step:
-                  name: Rollout Deployment
-                  identifier: rolloutDeployment
+                  name: rollout_deployment
+                  identifier: rollout_deployment
                   type: K8sRollingDeploy
                   timeout: 10m
                   spec:
@@ -88,8 +88,8 @@ pipeline:
                     pruningEnabled: false
             rollbackSteps:
               - step:
-                  name: Rollback Rollout Deployment
-                  identifier: rollbackRolloutDeployment
+                  name: rollback_rollout_deployment
+                  identifier: rollback_rollout_deployment
                   type: K8sRollingRollback
                   timeout: 10m
                   spec:
@@ -110,8 +110,8 @@ pipeline:
           execution:
             steps:
               - step:
-                  name: Prod_Manual_Approval
-                  identifier: Prod_Manual_Approval
+                  name: harness_approval
+                  identifier: harness_approval
                   type: HarnessApproval
                   timeout: 1d
                   spec:
@@ -161,8 +161,8 @@ pipeline:
                     pruningEnabled: false
             rollbackSteps:
               - step:
-                  name: Rollback Rollout Deployment
-                  identifier: rollbackRolloutDeployment
+                  name: Rrollback_rollout_deployment
+                  identifier: rollback_rollout_deployment
                   type: K8sRollingRollback
                   timeout: 10m
                   spec:
