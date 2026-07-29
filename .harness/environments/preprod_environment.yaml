@@ -1,0 +1,8 @@
+environment:
+  name: preprod_environment
+  identifier: preprod_environment
+  description: ""
+  tags: {}
+  type: PreProduction
+  orgIdentifier: default
+  projectIdentifier: default_project

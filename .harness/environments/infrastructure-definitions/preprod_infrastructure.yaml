@@ -1,0 +1,13 @@
+infrastructureDefinition:
+  name: preprod_infrastructure
+  identifier: preprod_infrastructure
+  orgIdentifier: default
+  projectIdentifier: default_project
+  environmentRef: preprod_environment
+  deploymentType: Kubernetes
+  type: KubernetesDirect
+  spec:
+    connectorRef: Kubernetes_Cluster_Connector
+    namespace: preprod
+    releaseName: <+service.name>
+  allowSimultaneousDeployments: true

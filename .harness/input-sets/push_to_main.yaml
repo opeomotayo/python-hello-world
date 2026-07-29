@@ -1,0 +1,49 @@
+inputSet:
+  name: push_to_main
+  identifier: push_to_main
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: python_hello_world
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
+    stages:
+      - stage:
+          identifier: Deploy_PreProd
+          type: Deployment
+          spec:
+            service:
+              serviceInputs:
+                serviceDefinition:
+                  type: Kubernetes
+                  spec:
+                    artifacts:
+                      primary:
+                        primaryArtifactRef: python_hello_world
+                        sources:
+                          - identifier: python_hello_world
+                            type: DockerRegistry
+                            spec:
+                              tag: <+trigger.commitShortSha>
+      - stage:
+          identifier: Deploy_Prod
+          type: Deployment
+          spec:
+            service:
+              serviceInputs:
+                serviceDefinition:
+                  type: Kubernetes
+                  spec:
+                    artifacts:
+                      primary:
+                        primaryArtifactRef: python_hello_world
+                        sources:
+                          - identifier: python_hello_world
+                            type: DockerRegistry
+                            spec:
+                              tag: <+trigger.commitShortSha>

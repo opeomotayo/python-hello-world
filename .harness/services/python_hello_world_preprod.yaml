@@ -1,0 +1,41 @@
+service:
+  name: python_hello_world_preprod
+  identifier: python_hello_world_preprod
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      manifests:
+        - manifest:
+            identifier: python_hello_world_preprod
+            type: HelmChart
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: GitHub_Connector
+                  gitFetchType: Branch
+                  folderPath: chart
+                  repoName: python-hello-world
+                  branch: main
+              subChartPath: ""
+              valuesPaths:
+                - chart/values-preprod.yaml
+              optionalValuesYaml: false
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+              helmVersion: V3
+              fetchHelmChartMetadata: false
+      artifacts:
+        primary:
+          primaryArtifactRef: <+input>
+          sources:
+            - spec:
+                connectorRef: Docker_Hub_Connector
+                imagePath: opeomotayo/python-hello-world
+                tag: <+pipeline.sequenceId>
+                digest: ""
+              identifier: python_hello_world
+              type: DockerRegistry
+  gitOpsEnabled: false
+  orgIdentifier: default
+  projectIdentifier: default_project
