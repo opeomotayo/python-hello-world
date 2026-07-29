@@ -43,6 +43,7 @@ pipeline:
                     image: python:3-alpine
                     shell: Sh
                     command: |-
+                      pip install -r requirements.txt
                       python -m unittest discover
               - step:
                   type: build_and_push_to_dockerhub
