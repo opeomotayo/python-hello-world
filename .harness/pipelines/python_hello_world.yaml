@@ -45,7 +45,7 @@ pipeline:
                     command: |-
                       python -m unittest discover
               - step:
-                  type: BuildAndPushDockerRegistry
+                  type: build_and_push_to_dockerhub
                   name: Build and Push to DockerHub
                   identifier: Build_and_Push_to_DockerHub
                   spec:
