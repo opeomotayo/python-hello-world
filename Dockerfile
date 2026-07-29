@@ -1,11 +1,11 @@
-FROM python:3.7-slim
+FROM python:3-alpine
 
-# Add requirements file in the container
-COPY requirements.txt ./requirements.txt
+WORKDIR /service
+
+COPY requirements.txt .
 RUN pip install -r requirements.txt
+COPY . ./
 
-# Add source code in the container
-COPY main.py ./main.py
+EXPOSE 8080
 
-# Define container entry point (could also work with CMD python main.py)
-ENTRYPOINT ["python", "main.py"]
+ENTRYPOINT ["python3", "app.py"]
