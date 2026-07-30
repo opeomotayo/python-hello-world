@@ -68,7 +68,7 @@ pipeline:
                       log:
                         level: info
                     auth:
-                      access_token: <+secrets.getValue("sonarqube_token")>
+                      access_token: <+secrets.getValue("SonarQube_Token")>
                       domain: https://sonarcloud.io
                       ssl: true
     - stage:
