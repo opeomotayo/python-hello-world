@@ -1,5 +1,6 @@
 inputSet:
   name: push_to_main
+  tags: {}
   identifier: push_to_main
   orgIdentifier: default
   projectIdentifier: default_project
@@ -11,7 +12,7 @@ inputSet:
           build:
             type: branch
             spec:
-              branch: <+trigger.branch>
+              branch: main
     stages:
       - stage:
           identifier: deploy_to_preprod
