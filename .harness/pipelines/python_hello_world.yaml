@@ -34,17 +34,35 @@ pipeline:
               os: Linux
           execution:
             steps:
-              - step:
-                  type: Run
-                  name: test_app
-                  identifier: test_app
-                  spec:
-                    connectorRef: Docker_Hub_Connector
-                    image: python:3-alpine
-                    shell: Sh
-                    command: |-
-                      pip install -r requirements.txt
-                      python -m unittest discover
+              - parallel:
+                  - step:
+                      type: Run
+                      name: test_app
+                      identifier: test_app
+                      spec:
+                        connectorRef: Docker_Hub_Connector
+                        image: python:3-alpine
+                        shell: Sh
+                        command: |-
+                          pip install -r requirements.txt
+                          python -m unittest discover
+                  - step:
+                      type: Sonarqube
+                      name: sonarqube_scan
+                      identifier: sonarqube_scan
+                      spec:
+                        mode: orchestration
+                        config: default
+                        target:
+                          type: repository
+                          detection: auto
+                        advanced:
+                          log:
+                            level: info
+                        auth:
+                          access_token: <+secrets.getValue("SonarQube_Token")>
+                          domain: https://sonarcloud.io
+                          ssl: true
               - step:
                   type: BuildAndPushDockerRegistry
                   name: build_and_push_to_dockerhub
@@ -54,23 +72,6 @@ pipeline:
                     repo: opeomotayo/python-hello-world
                     tags:
                       - <+pipeline.sequenceId>
-              - step:
-                  type: Sonarqube
-                  name: sonarqube_scan
-                  identifier: sonarqube_scan
-                  spec:
-                    mode: orchestration
-                    config: default
-                    target:
-                      type: repository
-                      detection: auto
-                    advanced:
-                      log:
-                        level: info
-                    auth:
-                      access_token: <+secrets.getValue("SonarQube_Token")>
-                      domain: https://sonarcloud.io
-                      ssl: true
     - stage:
         name: deploy_to_preprod
         identifier: deploy_to_preprod
