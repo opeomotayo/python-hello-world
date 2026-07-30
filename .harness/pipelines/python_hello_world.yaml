@@ -34,17 +34,37 @@ pipeline:
               os: Linux
           execution:
             steps:
-              - step:
-                  type: Run
-                  name: test_app
-                  identifier: test_app
-                  spec:
-                    connectorRef: Docker_Hub_Connector
-                    image: python:3-alpine
-                    shell: Sh
-                    command: |-
-                      pip install -r requirements.txt
-                      python -m unittest discover
+              - parallel:
+                  - step:
+                      type: Run
+                      name: test_app
+                      identifier: test_app
+                      spec:
+                        connectorRef: Docker_Hub_Connector
+                        image: python:3-alpine
+                        shell: Sh
+                        command: |-
+                          pip install -r requirements.txt
+                          python -m unittest discover
+                  - step:
+                      type: Sonarqube
+                      name: sonarqube_scan
+                      identifier: sonarqube_scan
+                      spec:
+                        mode: orchestration
+                        config: default
+                        target:
+                          type: repository
+                          detection: auto
+                        advanced:
+                          log:
+                            level: info
+                        auth:
+                          access_token: <+secrets.getValue("SonarQube_Token")>
+                          domain: https://sonarcloud.io
+                          ssl: true
+                        settings:
+                          product_organization_id: opeomotayo
               - step:
                   type: BuildAndPushDockerRegistry
                   name: build_and_push_to_dockerhub
