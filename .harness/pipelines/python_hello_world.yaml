@@ -71,6 +71,8 @@ pipeline:
                       access_token: <+secrets.getValue("SonarQube_Token")>
                       domain: https://sonarcloud.io
                       ssl: true
+                    settings:
+                      product_organization_id: opeomotayo
     - stage:
         name: deploy_to_preprod
         identifier: deploy_to_preprod
