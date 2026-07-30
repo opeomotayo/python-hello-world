@@ -54,6 +54,23 @@ pipeline:
                     repo: opeomotayo/python-hello-world
                     tags:
                       - <+pipeline.sequenceId>
+              - step:
+                  type: Sonarqube
+                  name: sonarqube_scan
+                  identifier: sonarqube_scan
+                  spec:
+                    mode: orchestration
+                    config: default
+                    target:
+                      type: repository
+                      detection: auto
+                    advanced:
+                      log:
+                        level: info
+                    auth:
+                      access_token: <+secrets.getValue("sonarqube_token")>
+                      domain: https://sonarcloud.io
+                      ssl: true
     - stage:
         name: deploy_to_preprod
         identifier: deploy_to_preprod
